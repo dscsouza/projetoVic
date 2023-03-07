@@ -1,61 +1,12 @@
 var express = require('express');
 var router = express.Router();
 const bcrypt = require('bcryptjs');
-const jwt = require('jsonwebtoken');
-
-
-// Usuário e senha de teste
-const users = [
-    {
-      id: 1,
-      username: 'usuario1',
-      password: '$2a$10$bGFFK.UzEBZcCz4XAIhiP.u4r/1PfXrelRiG6QPM2Dz0zepGcuoEe' // senha: "senha123"
-    },
-    {
-      id: 2,
-      username: 'usuario2',
-      password: '$2a$10$bGFFK.UzEBZcCz4XAIhiP.u4r/1PfXrelRiG6QPM2Dz0zepGcuoEe' // senha: "senha123"
-    }
-  ];
-
-// criptografa um texto com bcrypt
-function encrypt(text){
-    var salt = bcrypt.genSaltSync(10);
-    var hash = bcrypt.hashSync(text, salt);
-    return hash;
-}
+const userController = require('../controllers/userControllers');
 
 
 
 // Rota de login
-router.post('/', async (req, res) => {
-    const { username, password } = req.body;
-    console.log(`usuário: ${username} Senha: ${password}`)
-    const user = users.find(u => u.username === username);
-    
-    if (!user) {
-        console.log('erro no login')
-        return res.status(401).send('Usuário ou senha inválidos');
-       
-    }
-  
-    try {
-        console.log('verificando senha')
-        
-        console.log(encrypt('senha123'))
-        console.log(await bcrypt.compare('senha123', '$2a$10$bGFFK.UzEBZcCz4XAIhiP.u4r/1PfXrelRiG6QPM2Dz0zepGcuoEe'))
-      if (await bcrypt.compare(password, user.password)) {
-        const accessToken = jwt.sign({ username: user.username }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '15m' });
-        res.json({ accessToken: accessToken });
-        console.log('verificando senha')
-      } else {
-        res.status(401).send('Usuário ou senha inválidos');
-      }
-    } catch (err) {
-      console.error(err);
-      res.status(500).send('Erro no servidor');
-    }
-  });
+router.post('/', userController.login);
 
-  module.exports = router;
+module.exports = router;
   
