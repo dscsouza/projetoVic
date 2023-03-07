@@ -27,9 +27,7 @@ app.use(express.urlencoded({
     extended: true
 }))
 
-app.get("/", (req,res) =>{
-    res.send("Tela login")
-})
+app.use('/', express.static(__dirname + '/static'));
 
 
 app.use("/login", login)
