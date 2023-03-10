@@ -26,7 +26,6 @@ const userController = {
         if (!user) {
             console.log('erro no login');
             return res.status(401).send('Usuário ou senha inválidos');
-
         }
 
         try {

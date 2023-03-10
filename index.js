@@ -33,15 +33,21 @@ app.use(express.urlencoded({
 
 app.use('/', express.static(path.join(__dirname, "static")));
 
+app.set('view engine', 'ejs');
+app.set('views', './views');
 
 app.use("/login", login)
 
 // Rota protegida por autenticação
 app.get('/protegido/:acessToken', authenticateToken, (req, res) => {
   
-  res.send('Bem-vindo ' + req.user.username);
+  res.render('dashboard', {'user': req.user.username})
 
 });
+
+
+
+
 
 app.listen(process.env.PORT, () => {
   console.log(`Servidor rodando na porta ${process.env.PORT}`);
