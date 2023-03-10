@@ -4,6 +4,8 @@
 
 npm install express jsonwebtoken bcryptjs
 
+
+
 #na pasta raiz do projeto
 
 node index.js 
@@ -14,7 +16,13 @@ node index.js
 
 Estão os arquivos estáticos, html, css, imgs, e scripts que rodarão localmente na máquina do cliente
 
+
+
+
 #index.js - controla as rotas principais
+
+
+
 
 #diretório: /routes
 
