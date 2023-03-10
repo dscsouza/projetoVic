@@ -3,13 +3,17 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const login = require("./routes/login")
 const app = express();
+const path = require('path');
 
 require("dotenv").config();
 
 
 // Middleware para autenticação
 function authenticateToken(req, res, next) {
-  const token = req.headers['authorization'];
+  
+  // const token = req.headers['authorization'];
+  const token = req.params.acessToken
+  
   //console.log(authHeader)
   //const token = authHeader && authHeader.split(' ')[1];
   console.log(token)
@@ -27,14 +31,16 @@ app.use(express.urlencoded({
     extended: true
 }))
 
-app.use('/', express.static(__dirname + '/static'));
+app.use('/', express.static(path.join(__dirname, "static")));
 
 
 app.use("/login", login)
 
 // Rota protegida por autenticação
-app.get('/protegido', authenticateToken, (req, res) => {
+app.get('/protegido/:acessToken', authenticateToken, (req, res) => {
+  
   res.send('Bem-vindo ' + req.user.username);
+
 });
 
 app.listen(process.env.PORT, () => {

@@ -1,5 +1,7 @@
-const form = document.getElementById('login-form');
+const form = document.getElementById('loginForm');
 const message = document.getElementById('message');
+const topContainer = document.getElementById('alertTopContainer')
+console.log('arquivo js do html')
 
 form.addEventListener('submit', event => {
   event.preventDefault();
@@ -22,10 +24,11 @@ form.addEventListener('submit', event => {
   })
   .then(data => {
 	localStorage.setItem('accessToken', data.accessToken);
-	window.location.href = '/dashboard';
+	window.location.href = `/protegido/${data.accessToken}`;
   })
   .catch(error => {
 	console.error(error);
-	message.innerText = 'Erro ao fazer login';
+	message.innerText = 'Usuário ou senha incorretos.';
+    topContainer.classList.toggle("d-none")
     })
 })
