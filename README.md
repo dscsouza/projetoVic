@@ -2,7 +2,7 @@
 
 #bibliotecas necessárias
 
-npm install express jsonwebtoken bcryptjs
+npm install express jsonwebtoken bcryptjs ejs
 
 
 
@@ -18,9 +18,13 @@ Estão os arquivos estáticos, html, css, imgs, e scripts que rodarão localment
 
 
 
-
 #index.js - controla as rotas principais
 
+Para testes:
+
+login: usuario1
+
+senha: senha123
 
 
 
