@@ -1,11 +1,20 @@
 const custonExpress = require('./config/custon-express');
-const app = custonExpress();
-
+const connection = require('./database/connection');
 
 require("dotenv").config();
 
-app.listen(process.env.PORT, () => {
-  console.log(`Servidor rodando na porta ${process.env.PORT}`);
-});
+connection.connect((error) => {
+  if(error){
+    console.log(error);
+  }else{
+    console.log('Conectado!');
+      const app = custonExpress();
+      app.listen(process.env.PORT, () => {
+      console.log(`Servidor rodando na porta ${process.env.PORT}`);
+    });
+    
+  }
+})
+
 
     
