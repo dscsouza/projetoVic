@@ -7,7 +7,7 @@ class User {
             if(error){
                 return error;
             }else{
-                return result;
+                return JSON.parse(result);
             }
         })
     }
