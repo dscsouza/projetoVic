@@ -21,25 +21,23 @@ const userController = {
     login: async (req, res) => {
         const { username, password } = req.body;
         console.log(`usuário: ${username} Senha: ${password}`);
-        const credencial = User.autentica(username)
-        console.log(credencial)
-        //const user = users.find(u => u.username === username);
+        const credencial = await User.autentica(username)
+        const user = credencial[0].nm_usuario == username
+        const hash_senha = credencial[0].hash_senha
 
-        if (!credencial.username) {
+        if (!user) {
             console.log('erro no login');
             return res.status(401).send('Usuário ou senha inválidos');
         }
 
         try {
-            if (await bcrypt.compare(password, credencial.password)) {
+            if (await bcrypt.compare(password, hash_senha)) {
                 const accessToken = jwt.sign({ username: credencial.username }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '15m' });
                 res.json({ accessToken: accessToken });
-                console.log('verificando senha');
             } else {
                 res.status(401).send('Usuário ou senha inválidos');
             }
         } catch (err) {
-            console.error(err);
             res.status(500).send('Erro no servidor');
         }
     },
