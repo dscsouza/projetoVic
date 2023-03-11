@@ -6,7 +6,7 @@ module.exports = app => {
 
     // Rota protegida por autenticação
     app.get('/protegido/:acessToken', authenticateToken, (req, res) => {
-        res.render('dashboard', {'user': req.user.username})
+        res.render('dashboard', {user: req.user})
       });
     
     //para fins de testes essa rota encontra-se desprotegida
