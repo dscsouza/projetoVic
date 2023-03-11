@@ -1,36 +1,38 @@
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-
+const User = require('../model/userModel')
 
 // Usuário e senha de teste
-const users = [
-    {
-      id: 1,
-      username: 'usuario1',
-      password: '$2a$10$bGFFK.UzEBZcCz4XAIhiP.u4r/1PfXrelRiG6QPM2Dz0zepGcuoEe' // senha: "senha123"
-    },
-    {
-      id: 2,
-      username: 'usuario2',
-      password: '$2a$10$bGFFK.UzEBZcCz4XAIhiP.u4r/1PfXrelRiG6QPM2Dz0zepGcuoEe' // senha: "senha123"
-    }
-  ];
+// const users = [
+//     {
+//       id: 1,
+//       username: 'usuario1',
+//       password: '$2a$10$bGFFK.UzEBZcCz4XAIhiP.u4r/1PfXrelRiG6QPM2Dz0zepGcuoEe' // senha: "senha123"
+//     },
+//     {
+//       id: 2,
+//       username: 'usuario2',
+//       password: '$2a$10$bGFFK.UzEBZcCz4XAIhiP.u4r/1PfXrelRiG6QPM2Dz0zepGcuoEe' // senha: "senha123"
+//     }
+//   ];
 
 
 const userController = {
     login: async (req, res) => {
         const { username, password } = req.body;
         console.log(`usuário: ${username} Senha: ${password}`);
-        const user = users.find(u => u.username === username);
+        const credencial = User.autentica(username)
+        console.log(credencial)
+        //const user = users.find(u => u.username === username);
 
-        if (!user) {
+        if (!credencial.username) {
             console.log('erro no login');
             return res.status(401).send('Usuário ou senha inválidos');
         }
 
         try {
-            if (await bcrypt.compare(password, user.password)) {
-                const accessToken = jwt.sign({ username: user.username }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '15m' });
+            if (await bcrypt.compare(password, credencial.password)) {
+                const accessToken = jwt.sign({ username: credencial.username }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '15m' });
                 res.json({ accessToken: accessToken });
                 console.log('verificando senha');
             } else {
