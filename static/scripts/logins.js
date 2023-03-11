@@ -3,6 +3,29 @@ const message = document.getElementById('message');
 const topContainer = document.getElementById('alertTopContainer')
 console.log('arquivo js do html')
 
+function request_autenticado(rota){
+  const accessToken = localStorage.getItem('accessToken');
+
+  fetch(rota, {
+    headers: {
+      'Authorization': `${accessToken}`
+    }
+  })
+  .then(response => {
+    if (!response.ok) {
+      throw new Error(`Não foi possível acessar a rota ${rota}`);
+    }
+    return response.text();
+  })
+  .then(data => {
+    document.write(data);
+  })
+  .catch(error => {
+    console.error(error);
+  });
+
+}
+
 form.addEventListener('submit', event => {
   event.preventDefault();
   const username = form.elements.username.value;
@@ -24,7 +47,8 @@ form.addEventListener('submit', event => {
   })
   .then(data => {
 	localStorage.setItem('accessToken', data.accessToken);
-	window.location.href = `/protegido/${data.accessToken}`;
+  request_autenticado('/protegido')
+
   })
   .catch(error => {
 	console.error(error);

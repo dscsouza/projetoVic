@@ -2,25 +2,39 @@ const connection = require('../database/connection');
 
 class User {
     autentica(username){
-        const sql = `SELECT nm_usuario, hash_senha FROM tb_usuario WHERE nm_usuario = ${username}`;
-        connection.query(sql, (error, result) => {
+        const sql = `SELECT nm_usuario, hash_senha FROM tb_usuario WHERE nm_usuario = ?`;
+       return new Promise((resolve, reject) => {
+        (connection.query(sql, username, (error, results) => {
+            const retonroSql = results[0];
             if(error){
-                console.log('if aqui')
-                console.log(error)
-                return false;
-            }else{
-                console.log('else aqui')
-                return result;
+                reject(error)
             }
-        })
-    }
-
-    encrypt(password){
-        var salt = bcrypt.genSaltSync(10);
-        var hash = bcrypt.hashSync(password, salt);
-        return hash;
+               resolve (retonroSql)
+            
+        }))
+       })
     }
 
 }
 
 module.exports = new User;
+
+
+/*
+
+class User {
+    async  autentica(username){
+          const sql = `SELECT nm_usuario, hash_senha FROM tb_usuario WHERE nm_usuario = ?`;
+         return new Promise((resolve, reject) => {
+          (connection.query(sql, username, (error, results) => {
+              if(error){
+                  reject(error)
+              }
+                 resolve (results)
+              
+          }))
+         })
+      }
+  
+  }*/
+  
