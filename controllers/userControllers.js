@@ -22,8 +22,8 @@ const userController = {
         const { username, password } = req.body;
         console.log(`usuário: ${username} Senha: ${password}`);
         const credencial = await User.autentica(username)
-        const user = credencial[0].nm_usuario == username
-        const hash_senha = credencial[0].hash_senha
+        const user = credencial.nm_usuario == username
+        const hash_senha = credencial.hash_senha
 
         if (!user) {
             console.log('erro no login');
