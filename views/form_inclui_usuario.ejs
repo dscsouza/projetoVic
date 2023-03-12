@@ -1,0 +1,38 @@
+
+<!-- FORMULÁRIO DE INCLUSÃO DE USUÁRIOS NO SISTEMA -->
+
+    <div class="container">
+        <h1 class="my-4 text-center">Cadastro de Usuários</h1>
+        <form id="cadastroClientes" class="row g-3 mt-4">
+            <div class="form-floating col-md-6 mb-3">
+                <input type="text" class="form-control" id="usuario" placeholder="Digite o username a ser utilizado para acessar o sistema">
+                <label for="usuario">Usuário</label>
+            </div>    
+            <!-- Tipo -->
+            <div class="form-floating col-md-6 mb-3">
+                <select class="form-select" id="tipoUser" required>
+                    <option value="">Selecione um tipo...</option>
+                    <option value="user">Usuário</option>
+                    <option value="admin">Administrador</option>
+                </select>
+                <label for="tipoUser">Tipo de Usuário</label>
+            </div>
+                  
+            <div class="mb-3 form-floating col-md-6">
+                <input type="password" class="form-control" id="senhaUser" placeholder="Digite a senha do usuário a ser criado">
+                <label for="senhaUser">Senha</label>
+            </div>
+
+            <div class="mb-3 form-floating col-md-6">
+                <input type="password" class="form-control" id="senhaUserConfere" placeholder="Digite novamente a senha">
+                <label for="senhaUserConfere">Digite a senha novamente</label>
+            </div>
+
+            <div class="text-center">   
+                <button type="submit" class="btn btn-primary col-md-4 p-2">Cadastrar</button>
+            </div>  
+
+
+        </form>
+    </div>
+
