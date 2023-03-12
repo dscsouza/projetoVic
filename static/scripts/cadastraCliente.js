@@ -1,59 +1,39 @@
 const form = document.getElementById('cadastroClientes');
 const message = document.getElementById('message');
 const topContainer = document.getElementById('alertTopContainer')
-console.log('arquivo js do html')
+const accessToken = localStorage.getItem('accessToken');
 
-function request_autenticado(rota){
-  const accessToken = localStorage.getItem('accessToken');
+// {nm_cliente, cgc, contato}
 
-  fetch(rota, {
-    headers: {
-      'Authorization': `${accessToken}`
-    }
+console.log('js do html clientes')
+// ENVIANDO OS DADOS PARA A ROTA /clientes
+
+form.addEventListener('submit', function(event) {
+  event.preventDefault(); // interrompe o comportamento padrão do formulário
+
+  const dadosFormulario = new FormData(formulario);
+  console.log("enviando formulário...")
+
+  fetch('/cliente', {
+    method: 'POST',
+    body: dadosFormulario
   })
   .then(response => {
-    if (!response.ok) {
-      throw new Error(`Não foi possível acessar a rota ${rota}`);
+    if (response.status === 200) {
+      console.log('Cadastro realizado!');
+      return response.text();
+    } else if (response.status === 401) {
+      console.log('Cadastro não realizado!');
+      return response.text();
+    } else {
+      throw new Error('Houve um erro ao enviar o formulário!');
     }
-    return response.text();
   })
-  .then(data => {
-    principal = document.getElementById('htmlPrincipal');
-    principal.innerHTML = data
-  })
-  .catch(error => {
-    console.error(error);
-  });
-
-}
-
-form.addEventListener('submit', event => {
-  event.preventDefault();
-  const username = form.elements.username.value;
-  const password = form.elements.password.value;
-  const data = { username, password };
-
-  fetch('/login', {
-	method: 'POST',
-	headers: {
-  	'Content-Type': 'application/json'
-	},
-	body: JSON.stringify(data)
-  })
-  .then(response => {
-	if (!response.ok) {
-  	throw new Error(response.statusText);
-	}
-	return response.json();
-  })
-  .then(data => {
-	localStorage.setItem('accessToken', data.accessToken);
-  request_autenticado('/protegido')
-
-  })
-  .catch(error => {
-	console.error(error);
-	message.innerText = 'Usuário ou senha incorretos.';
+  .then(function(text) {
+    message.innerText = text;
     topContainer.classList.toggle("d-none")
-    })
-})
+  })
+  .catch(erro => {
+    console.log('erro no js do ejs', erro);
+  });
+});
