@@ -12,9 +12,22 @@ module.exports = app => {
     
     //para fins de testes essa rota encontra-se desprotegida
     //antes de ir para produção, reincluir o middleware authenticateToken
-    app.get('/inclui_os', (req, res) => {
+    app.get('/abreOs', authenticateToken, (req, res) => {
       res.render('abertura_os')
     });
+
+    app.get('/cadastraCliente', authenticateToken, (req, res) => {
+      res.render('inclui_cliente')
+    });
+
+    app.get('/estoque', authenticateToken, (req, res) => {
+      res.render('inclui_item')
+    });
+
+    app.get('/inclui_usuario', authenticateToken, (req, res) => {
+      res.render('inclui_usuario')
+    });    
+    
 
 
 
