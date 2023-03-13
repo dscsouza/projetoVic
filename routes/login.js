@@ -16,14 +16,6 @@ module.exports = app => {
       res.render('abertura_os')
     });
 
-    app.get('/cadastraCliente', authenticateToken, (req, res) => {
-      res.render('inclui_cliente')
-    });
-
-    app.get('/estoque', authenticateToken, (req, res) => {
-      res.render('inclui_item')
-    });
-
     app.get('/inclui_usuario', authenticateToken, (req, res) => {
       res.render('inclui_usuario')
     });    
