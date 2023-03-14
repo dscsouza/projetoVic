@@ -23,12 +23,17 @@ const userController = {
         const { username, password } = req.body;
         console.log(`usuário: ${username} Senha: ${password}`);
         const credencial = await User.autentica(username)
+        if (!credencial){
+            console.log('erro no login 1');
+            return res.render('login',{msg: 'Usuário ou senha inválidos'})
+        }
+
         const user = credencial.nm_usuario == username
         const hash_senha = credencial.hash_senha
 
         if (!user) {
-            console.log('erro no login');
-            return res.status(401).send('Usuário ou senha inválidos');
+            console.log('erro no login 2');
+            return res.render('login',{msg: 'Usuário ou senha inválidos'})
         }
 
         try {
@@ -40,7 +45,7 @@ const userController = {
                   };
                   res.redirect('/dashboard');
             } else {
-                res.render('login',{msg: 'Usuário ou senha inválidos'});
+                return res.render('login',{msg: 'Usuário ou senha inválidos'});
             }
         } catch (err) {
             console.log(err)
