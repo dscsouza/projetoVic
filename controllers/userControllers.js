@@ -2,6 +2,7 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const User = require('../model/userModel')
 
+
 // Usuário e senha de teste
 // const users = [
 //     {
@@ -22,23 +23,33 @@ const userController = {
         const { username, password } = req.body;
         console.log(`usuário: ${username} Senha: ${password}`);
         const credencial = await User.autentica(username)
+        if (!credencial){
+            console.log('erro no login 1');
+            return res.render('login',{msg: 'Usuário ou senha inválidos'})
+        }
+
         const user = credencial.nm_usuario == username
         const hash_senha = credencial.hash_senha
 
         if (!user) {
-            console.log('erro no login');
-            return res.status(401).send('Usuário ou senha inválidos');
+            console.log('erro no login 2');
+            return res.render('login',{msg: 'Usuário ou senha inválidos'})
         }
 
         try {
             if (await bcrypt.compare(password, hash_senha)) {
-                const accessToken = jwt.sign({ username: credencial.username }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '15m' });
-                res.json({ accessToken: accessToken });
+                
+                req.session.user = {
+                    usuario: credencial.nm_usuario,
+                    logadoEm: new Date()
+                  };
+                  res.redirect('/dashboard');
             } else {
-                res.status(401).send('Usuário ou senha inválidos');
+                return res.render('login',{msg: 'Usuário ou senha inválidos'});
             }
         } catch (err) {
-            res.status(500).send('Erro no servidor');
+            console.log(err)
+            res.render('login',{msg:'Erro no servidor'});
         }
     },
     encrypt: (text) => {
