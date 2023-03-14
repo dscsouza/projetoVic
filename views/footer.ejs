@@ -3,14 +3,16 @@
 <footer class="fixed-bottom bg-light text-dark text-center py-3" style="height: 8%;">
   <!-- MENSAGENS DE ALERTA - FECHAM EM 3SEGUNDOS  -->
   <% if (msg) { %>
-    <div class="position-fixed top-0 start-0 w-100 h-100 d-flex justify-content-center align-items-center">
+    <div id="paiAlert" class="position-fixed top-0 start-0 w-100 h-100 d-flex justify-content-center align-items-center">
       <div id="alertContainer" class="alert alert-primary alert-dismissible fade show position-absolute bottom-0 m-3" role="alert">
         <span id="message" class="me-3"><%= msg %></span>
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Fechar"></button>
         <script>
           setTimeout(function() {
             document.getElementById("alertContainer").style.display = "none";
-          }, 3000);
+            document.getElementById("paiAlert").classList.add("d-none");
+
+          }, 2500);
         </script>
       </div>
     </div>
