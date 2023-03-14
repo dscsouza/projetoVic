@@ -6,12 +6,12 @@ cadastra: async (req, res) => {
     const dados = req.body;
     const cliente = await Cliente.create(dados);
         if (cliente.sqlMessage){
-            res.status(401).send('Cadastro não realizado')
+            res.status(401).render('inclui_cliente', {msg:'Cadastro não realizado, verifique os dados e tente novamente!'})
         }else{
-            res.status(200).redirect('inclui_cliente');
+            res.status(200).render('inclui_cliente', {msg:'Cadastro realizado com sucesso!'});
         }
     }catch(err){
-        res.status(500).json(err);
+        res.status(500).render('inclui_cliente', {msg: err});
     }
   },
 lista: async (req, res) => {
