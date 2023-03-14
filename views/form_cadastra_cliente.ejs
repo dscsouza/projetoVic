@@ -1,25 +1,99 @@
 
 <!-- FORMULÁRIO DE CADASTRO DE CLIENTE -->
 <!-- {nm_cliente, cgc, contato} -->
-    <div class="container">
-        <h1 class="my-4 text-center">Cadastro de Clientes</h1>
+<div class="container">
+    
+    
+    <h1 class="my-4 text-center">Cadastro de Clientes</h1>
+    <hr>
         <form action="/cliente" method="post" id="cadastroClientes" class="row g-3 mt-4">
-            <div class="mb-3 form-floating col-md-12">
+            <div class="mb-3 form-floating col-md-4">
                 <input type="text" class="form-control" id="nm_cliente" name="nm_cliente" placeholder="Digite o nome do cliente">
                 <label for="nm_cliente">Nome do Cliente</label>
             </div>
-            <div class="form-floating col-md-6 mb-3">
+            <div class="form-floating col-md-2 mb-3">
                 <input type="text" class="form-control" id="cgc" name="cgc" placeholder="Digite o CPF ou CNPJ">
                 <label for="cgc">CPF/CNPJ</label>
             </div>
-            <div class="col-md-6 mb-3 form-floating">
-                <input type="text" class="form-control" id="contato" name="contato" placeholder="Digite o telefone ou e-mail">
-                <label for="contato">Contato</label>
+            <div class="col-md-3 mb-3 form-floating">
+                <input type="text" class="form-control" id="email" name="email" placeholder="Digite o telefone ou e-mail">
+                <label for="email">Email</label>
             </div>
-            <div class="text-center">   
-                <button type="submit" class="btn btn-primary col-md-4 p-2">Cadastrar</button>
+            <div class="col-md-2 mb-3 form-floating">
+                <input type="text" class="form-control" id="telefone" name="telefone" placeholder="Digite o telefone ou e-mail">
+                <label for="telefone">Telefone</label>
             </div>
+            <!-- <div class="text-center">    -->
+                <button class="btn btn-primary rounded-circle btn-icon-only" alt="Incluir novo cliente" style="width: 50px; height: 50px;">
+                    <i class="bi bi-plus fw-bold">+</i>
+                  </button>
+                  
+                  
+            <!-- </div> -->
         </form>
+        <hr>
+        
+        <div class="row">
+            <div class="col-md-5 mb-3 form-floating">
+              <input onkeyup="console.log('apertou')" type="text" class="form-control" id="searchCliente" name="searchCliente" placeholder="Digite o telefone ou e-mail">
+              <label for="telefone">Pesquisar</label>
+            </div>
+            <div class="form-floating col-md-2 mb-3">
+              <select class="form-select" id="item" required>
+                <option value="">Selecione um tipo...</option>
+                <option value="Bateria Selada">Nome</option>
+                <option value="Bateria Estacionária">CPF/CNPJ</option>
+              </select>
+              <label for="tipoBateria">Critério de Pesquisa</label>
+            </div>
+          </div>
+          
+
+    
+          
+          <div class="table-responsive">
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th>Nome</th>
+                  <th>CPF/CNPJ</th>
+                  <th>E-mail</th>
+                  <th>Telefone</th>
+                </tr>
+              </thead>
+              <tbody>
+                
+                <tr>
+                  <td>João Silva</td>
+                  <td>123.456.789-10</td>
+                  <td>joao.silva@example.com</td>
+                  <td>(11) 1234-5678</td>
+                </tr>
+                <tr>
+                  <td>Maria Santos</td>
+                  <td>987.654.321-00</td>
+                  <td>maria.santos@example.com</td>
+                  <td>(11) 2345-6789</td>
+                </tr>
+                <!-- adicione mais linhas aqui -->
+              </tbody>
+            </table>
+          </div>
+          
+          <div class="d-flex justify-content-center">
+            <nav aria-label="Page navigation example">
+              <ul class="pagination">
+                <li class="page-item"><a class="page-link" href="#">Anterior</a></li>
+                <li class="page-item"><a class="page-link" href="#">1</a></li>
+                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                <li class="page-item"><a class="page-link" href="#">Próximo</a></li>
+              </ul>
+            </nav>
+          </div>
+          
+
+
     </div>
 
     <!-- <script src="scripts/cadastraCliente.js" type="text/javascript"></script> -->
