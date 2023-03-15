@@ -28,9 +28,9 @@ class Cliente {
             })
         }
         listApproximation(atributo, valor){
-        const sql = `SELECT * FROM tb_cliente WHERE ? like %?%`;
+        const sql = `SELECT * FROM tb_cliente WHERE ${atributo} LIKE '%${valor}%'`;
         return new Promise((resolve, reject) => {
-        connection.query(sql, [atributo, valor], (error, result) => {
+        connection.query(sql, (error, result) => {
             if(error){
                 reject(error)
             }else{
