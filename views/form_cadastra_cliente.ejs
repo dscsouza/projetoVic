@@ -34,16 +34,16 @@
         
         <div class="row">
             <div class="col-md-5 mb-3 form-floating">
-              <input onkeyup="console.log('apertou')" type="text" class="form-control" id="searchCliente" name="searchCliente" placeholder="Digite o telefone ou e-mail">
+              <input onkeyup="searchcliente()" type="text" class="form-control" id="searchClient" name="searchCliente" placeholder="Digite o telefone ou e-mail">
               <label for="telefone">Pesquisar</label>
             </div>
             <div class="form-floating col-md-2 mb-3">
-              <select class="form-select" id="item" required>
-                <option value="">Selecione um tipo...</option>
-                <option value="Bateria Selada">Nome</option>
-                <option value="Bateria Estacionária">CPF/CNPJ</option>
+              <select class="form-select" id="searchItem" required>
+                <option value="">Pesquisar por...</option>
+                <option value="nome" selected>Nome</option>
+                <option value="cgc">CPF/CNPJ</option>
               </select>
-              <label for="tipoBateria">Critério de Pesquisa</label>
+              <label for="Filtro de Pesquisa">Critério de Pesquisa</label>
             </div>
           </div>
           

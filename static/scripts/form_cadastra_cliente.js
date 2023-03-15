@@ -23,7 +23,7 @@ function atualizarTabelaClientes() {
       const tr = document.createElement('tr');
       tr.innerHTML = `
         <td>${cliente.nm_cliente}</td>
-        <td>${cliente.cgc}</td>
+        <td>${cliente.CGC}</td>
         <td>${cliente.email}</td>
         <td>${cliente.telefone}</td>
       `;
@@ -33,3 +33,22 @@ function atualizarTabelaClientes() {
 }
 
 atualizarTabelaClientes();
+
+
+
+nomeCliente = document.getElementById("searchClient")
+nomeCliente.addEventListener("keyup", searchcliente);
+
+function searchcliente(){
+  
+  criterioPesquisa = document.getElementById("searchItem")
+  
+  // testando a captura dos valores
+  console.log(criterioPesquisa.value, nomeCliente.value)
+
+  //fetch
+
+
+
+
+}
