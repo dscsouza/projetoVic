@@ -16,10 +16,20 @@ cadastra: async (req, res) => {
   },
 lista: async (req, res) => {
     try{
-    const lista = await Cliente.listAll();
-    res.status(200).json(lista);
+        const lista = await Cliente.listAll();
+        res.status(200).json(lista);
+        }catch(err){
+        res.status(500).json('Erro no servidor');
+    }
+},
+listaSelecao: async(req, res) => {
+    try{
+        const {atributo, valor} = req.body;
+        console.log(req.body);
+        const selecao = await Cliente.listApproximation(atributo, valor)
+        res.status(200).json(selecao);
     }catch(err){
-    res.status(500).json('Erro no servidor');
+        res.status(500).json(err);
     }
 }  
 }
