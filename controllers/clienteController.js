@@ -24,8 +24,7 @@ lista: async (req, res) => {
 },
 listaSelecao: async(req, res) => {
     try{
-        const {atributo, valor} = req.body;
-        console.log(req.body);
+        const {atributo, valor} = req.query;
         const selecao = await Cliente.listApproximation(atributo, valor)
         res.status(200).json(selecao);
     }catch(err){
