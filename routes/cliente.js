@@ -6,6 +6,7 @@ module.exports = app => {
         res.render('inclui_cliente', { msg: '' })
       });
     app.get('/clientes', authenticateToken, clienteController.lista);
+    app.get('/pesquisaAproximacao', clienteController.listaSelecao);
     app.post('/cliente', clienteController.cadastra);
 }
 
