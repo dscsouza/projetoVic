@@ -34,14 +34,14 @@
         
         <div class="row">
             <div class="col-md-5 mb-3 form-floating">
-              <input onkeyup="searchcliente()" type="text" class="form-control" id="searchClient" name="searchCliente" placeholder="Digite o telefone ou e-mail">
+              <input onkeyup="atualizaTabelaAposPesquisa()" type="text" class="form-control" id="searchClient" name="searchCliente" placeholder="Digite o telefone ou e-mail">
               <label for="telefone">Pesquisar</label>
             </div>
             <div class="form-floating col-md-2 mb-3">
               <select class="form-select" id="searchItem" required>
                 <option value="">Pesquisar por...</option>
-                <option value="nome" selected>Nome</option>
-                <option value="cgc">CPF/CNPJ</option>
+                <option value="nm_cliente" selected>Nome</option>
+                <option value="CGC">CPF/CNPJ</option>
               </select>
               <label for="Filtro de Pesquisa">Critério de Pesquisa</label>
             </div>
