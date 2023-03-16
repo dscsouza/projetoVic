@@ -16,10 +16,16 @@ cadastra: async (req, res) => {
   },
 lista: async (req, res) => {
     try{
-        const lista = await Cliente.listAll();
+        const pg = parseInt(req.query.pg);
+        const qtd = parseInt(req.query.qtd);
+        if(pg == ''){
+            pg = 1;
+        }
+        const count = (pg*qtd) - qtd;
+        const lista = await Cliente.listAll(count, qtd);
         res.status(200).json(lista);
         }catch(err){
-        res.status(500).json('Erro no servidor');
+        res.status(500).json(err);
     }
 },
 listaSelecao: async(req, res) => {

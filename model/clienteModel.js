@@ -15,14 +15,30 @@ class Cliente {
             })
         })
     }
-        listAll(){
-            const sql = 'SELECT * FROM tb_cliente';
+        listAll(count, qtd){
+            const sqlTotalRegistros = 'SELECT COUNT(*) as totalRegistros FROM tb_cliente';
+            let valores = {
+                totalPages: 0.0,
+                dados: null,
+            }
             return new Promise((resolve, reject) => {
-                connection.query(sql, (error, results) => {
+                connection.query(sqlTotalRegistros, (error, results) => {
                     if(error){
                         reject(error);
                     }else{
-                        resolve(results);
+                        const totalRegistros = parseInt(results[0].totalRegistros);
+                        valores.totalPages = Math.round(totalRegistros/10);
+                        const sql = `SELECT * FROM tb_cliente LIMIT ${qtd} OFFSET  ${count}`;
+                        connection.query(sql, (error, results) => {
+                            if(error){
+                                reject(error);
+                            }else{
+                                console.log(valores);
+                                valores.dados = results;
+                                console.log(valores);
+                                resolve(valores);
+                            }
+                        }) 
                     }
                 })
             })
