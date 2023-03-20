@@ -1,4 +1,5 @@
 const form = document.getElementById('cadastroClientes');
+const divPagination = document.getElementById('divPagination')
 
 
 // {nm_cliente, cgc, email, telefone}
@@ -6,20 +7,61 @@ const form = document.getElementById('cadastroClientes');
 console.log('js do html clientes')
 // ENVIANDO OS DADOS PARA A ROTA /clientes
 
+function pagination(totalPaginas){
+  console.log('na função pagination: ', totalPaginas);
+  let navPagination = `<nav aria-label="Page navigation">
+  <ul class="pagination">`;
 
-function buscarClientes() {
-  return fetch('/clientes')
+  for (let index = 1; index <= totalPaginas; index++) {
+    console.log(navPagination);
+    navPagination = navPagination + `<li class="page-item"><a class="page-link" style="cursor:pointer" onclick="atualizarTabelaClientes(${index})">${index}</a></li>`;
+  }
+
+  navPagination = navPagination + `</ul>
+  </nav>`;
+
+  console.log(navPagination);
+
+  return navPagination;
+}
+
+
+
+
+
+function buscarClientes(pgAtual, qtdPorPagina) {
+
+  const params = new URLSearchParams({
+    pg: pgAtual,
+    qtd: qtdPorPagina
+  });
+
+
+  return fetch(`/clientes?${params}`, {
+    method: 'get',
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  })
     .then(response => response.json())
     .catch(error => console.error(error));
 }
 
 
-function atualizarTabelaClientes() {
+function atualizarTabelaClientes(pgAtual) {
   const tbody = document.getElementById('listaClientes');
   tbody.innerHTML = '';
 
-  buscarClientes().then(clientes => {
-    clientes.forEach(cliente => {
+  // quantidade de registros por página
+  quantidadePorPagina = 6
+
+  buscarClientes(pgAtual, quantidadePorPagina).then(clientes => {
+
+    //retorna o menu de paginação
+    console.log('Total de páginas: ', clientes.totalPages)
+    divPagination.innerHTML = pagination(clientes.totalPages)
+
+    clientes.dados.forEach(cliente => {
       const tr = document.createElement('tr');
       tr.innerHTML = `
         <td>${cliente.nm_cliente}</td>
@@ -32,7 +74,8 @@ function atualizarTabelaClientes() {
   });
 }
 
-atualizarTabelaClientes();
+//inicia sempre na primeira página
+atualizarTabelaClientes(1);
 
 
 function atualizaTabelaPesquisa() {
