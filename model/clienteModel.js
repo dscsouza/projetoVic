@@ -27,7 +27,9 @@ class Cliente {
                         reject(error);
                     }else{
                         const totalRegistros = parseInt(results[0].totalRegistros);
-                        valores.totalPages = Math.round(totalRegistros/10);
+                        // Alterei essa linha para dividir o total de registros pela
+                        // quantidade de itens por página e arredondar para cima
+                        valores.totalPages = Math.ceil(totalRegistros / qtd); 
                         const sql = `SELECT * FROM tb_cliente LIMIT ${qtd} OFFSET  ${count}`;
                         connection.query(sql, (error, results) => {
                             if(error){
