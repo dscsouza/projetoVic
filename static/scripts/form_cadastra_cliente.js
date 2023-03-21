@@ -7,14 +7,15 @@ const divPagination = document.getElementById('divPagination')
 console.log('js do html clientes')
 // ENVIANDO OS DADOS PARA A ROTA /clientes
 
-function pagination(totalPaginas){
+function pagination(totalPaginas, pgAtual){
   console.log('na função pagination: ', totalPaginas);
   let navPagination = `<nav aria-label="Page navigation">
   <ul class="pagination">`;
 
   for (let index = 1; index <= totalPaginas; index++) {
     console.log(navPagination);
-    navPagination = navPagination + `<li class="page-item"><a class="page-link" style="cursor:pointer" onclick="atualizarTabelaClientes(${index})">${index}</a></li>`;
+    ativa = index == pgAtual?'active':' '
+    navPagination = navPagination + `<li class="page-item ${ativa}"><a class="page-link" style="cursor:pointer" onclick="atualizarTabelaClientes(${index})">${index}</a></li>`;
   }
 
   navPagination = navPagination + `</ul>
@@ -49,6 +50,9 @@ function buscarClientes(pgAtual, qtdPorPagina) {
 
 
 function atualizarTabelaClientes(pgAtual) {
+  
+  
+
   const tbody = document.getElementById('listaClientes');
   tbody.innerHTML = '';
 
@@ -59,7 +63,7 @@ function atualizarTabelaClientes(pgAtual) {
 
     //retorna o menu de paginação
     console.log('Total de páginas: ', clientes.totalPages)
-    divPagination.innerHTML = pagination(clientes.totalPages)
+    divPagination.innerHTML = pagination(clientes.totalPages, pgAtual)
 
     clientes.dados.forEach(cliente => {
       const tr = document.createElement('tr');
@@ -72,6 +76,7 @@ function atualizarTabelaClientes(pgAtual) {
       tbody.appendChild(tr);
     });
   });
+  
 }
 
 //inicia sempre na primeira página
