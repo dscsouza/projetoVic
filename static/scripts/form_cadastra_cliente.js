@@ -25,9 +25,35 @@ function excluirRegistro(e){
 }
 //evento disparado ao clicar em editar um registro
 function editarRegistro(e){
-  //pega o cpf diretamente da tag data-cgc criada ao renderizar a tabela
+  //pega os data- do button editar
+  nm_cliente = e.getAttribute('data-name')
   cgc = e.getAttribute('data-cgc')
+  email = e.getAttribute('data-email')
+  telefone = e.getAttribute('data-telefone')
   console.log('editar registro de cpf:', cgc)
+
+
+  //seleciona o modal no html
+  const myModal = new bootstrap.Modal(document.querySelector('#editarClienteModal'));
+
+  //seleciona os inputs do modal
+  inputNome = document.getElementById("editarNome")
+  inputCgc = document.getElementById("editarCgc")
+  inputTelefone = document.getElementById("editarTelefone")
+  inputEmail = document.getElementById("editarEmail")
+
+
+  // insere as informações nos campos do modal para facilitar a edição
+  inputNome.value = nm_cliente
+  inputCgc.value = cgc
+  inputTelefone.value = telefone
+  inputEmail.value = email
+
+  myModal.show()
+  
+  
+  
+
 
 }
 
@@ -110,12 +136,12 @@ function atualizarTabelaClientes(pgAtual) {
         <td>${cliente.telefone}</td>
         <td class="menuRow">
         <div class="btn-group invisible" role="group" aria-label="Excluir ou Editar">
-          <button type="button" class="btn btn-outline-secondary" data-cgc="${cliente.CGC}" onclick="excluirRegistro(this)">
+          <button type="button" class="btn btn-outline-secondary" data-name="${cliente.nm_cliente}" data-cgc="${cliente.CGC}" data-email="${cliente.email}" data-telefone="${cliente.telefone}" onclick="excluirRegistro(this)">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash-fill" viewBox="0 0 16 16">
               <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z"/>
             </svg>
           </button>
-          <button type="button" class="btn btn-outline-secondary" data-cgc="${cliente.CGC}" onclick="editarRegistro(this)">
+          <button type="button" class="btn btn-outline-secondary" data-name="${cliente.nm_cliente}" data-cgc="${cliente.CGC}" data-email="${cliente.email}" data-telefone="${cliente.telefone}" data-bs-toggle="modal" onclick="editarRegistro(this)">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16">
               <path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z"/>
             </svg>
@@ -163,12 +189,12 @@ function atualizaTabelaPesquisa() {
         <td>${cliente.telefone}</td>
         <td class="menuRow">
         <div class="btn-group invisible" role="group" aria-label="Excluir ou Editar">
-          <button type="button" class="btn btn-outline-secondary" data-cgc="${cliente.CGC}" onclick="excluirRegistro(this)">
+          <button type="button" class="btn btn-outline-secondary" data-cgc="${cliente.CGC}" data-bs-toggle="modal" data-bs-target="#editarClienteModal"">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash-fill" viewBox="0 0 16 16">
               <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z"/>
             </svg>
           </button>
-          <button type="button" class="btn btn-outline-secondary" data-cgc="${cliente.CGC}" onclick="editarRegistro(this)">
+          <button type="button" class="btn btn-outline-secondary" data-name="${cliente.nm_cliente}" data-cgc="${cliente.CGC}" data-email="${cliente.email}" data-telefone="${cliente.telefone}" data-bs-toggle="modal" onclick="editarRegistro(this)">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16">
               <path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z"/>
             </svg>
@@ -268,7 +294,7 @@ function atualizaTabelaAposPesquisa() {
               <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z"/>
             </svg>
           </button>
-          <button type="button" class="btn btn-outline-secondary" data-cgc="${cliente.CGC}" onclick="editarRegistro(this)">
+          <button type="button" class="btn btn-outline-secondary" data-name="${cliente.nm_cliente}" data-cgc="${cliente.CGC}" data-email="${cliente.email}" data-telefone="${cliente.telefone}" data-bs-toggle="modal" onclick="editarRegistro(this)">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16">
               <path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z"/>
             </svg>
