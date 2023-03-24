@@ -57,6 +57,19 @@ class Cliente {
         })
         });
     }
+        deleta(valor){
+            const sql = `DELETE FROM tb_cliente WHERE ?`;
+        return new Promise((resolve, reject) => {
+            connection.query(sql, valor, (error, result) => {
+                if(error){
+                    reject(error)
+                }else{
+                    resolve(result)
+                }
+            })
+        })
+            
+        }
 }
 
 module.exports = new Cliente;

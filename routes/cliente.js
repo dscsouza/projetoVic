@@ -7,6 +7,7 @@ module.exports = app => {
       });
     app.get('/clientes',  clienteController.lista);
     app.get('/pesquisaAproximacao', clienteController.listaSelecao);
+    app.get('/exclui-cliente', clienteController.exclui);
     app.post('/cliente', clienteController.cadastra);
 }
 
