@@ -27,7 +27,16 @@ lista: async (req, res) => {
         }catch(err){
         res.status(500).json(err);
     }
-},
+  },
+listaId: async(req, res) => {
+    try{
+        const id_cliente = req.query;
+        const dados = await Cliente.listId(id_cliente);
+        res.status(200).json(dados);
+    }catch(err){
+        res.status(500).json(err);
+    }
+  }, 
 listaSelecao: async(req, res) => {
     try{
         const {atributo, valor} = req.query;
@@ -36,12 +45,22 @@ listaSelecao: async(req, res) => {
     }catch(err){
         res.status(500).json(err);
     }
-},
+  },
+edita: async(req, res) => {
+    try{
+        const valor = req.body;
+        const id = req.body.id_cliente;
+        const selecao = await Cliente.edit(id, valor);
+        res.status(200).json(selecao)
+    }catch(err){
+        res.status(500).json(err); 
+    }
+  },
 exclui: async(req, res) => {
     try{
         const id_cliente =  req.query
         console.log(id_cliente);
-        const resultado = await Cliente.deleta(id_cliente);
+        const resultado = await Cliente.deletw(id_cliente);
         if(resultado.sqlMessage){
             res.status(401).json('A exclusão não foi concluída')
         }else{
@@ -51,7 +70,7 @@ exclui: async(req, res) => {
         res.status(500).json(err);
     }
     
-}  
+  }
 }
 
 module.exports = clienteController;

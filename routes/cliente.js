@@ -6,7 +6,9 @@ module.exports = app => {
         res.render('inclui_cliente', { msg: '' })
       });
     app.get('/clientes',  clienteController.lista);
+    app.put('/cliente', clienteController.listaId);
     app.get('/pesquisaAproximacao', clienteController.listaSelecao);
+    app.put('/edita-cliente', clienteController.edita);
     app.get('/exclui-cliente', clienteController.exclui);
     app.post('/cliente', clienteController.cadastra);
 }
